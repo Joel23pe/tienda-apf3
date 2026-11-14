@@ -2,10 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Producto } from '../../core/models/models';
 import { ProductoService } from '../../core/services/producto.service';
+import { AlertaComponent } from '../../shared/alerta/alerta.component';
+import { ProductoFilaComponent } from './producto-fila.component';
 
 @Component({
   selector: 'app-producto-list',
-  imports: [RouterLink],
+  imports: [RouterLink, AlertaComponent, ProductoFilaComponent],
   templateUrl: './producto-list.component.html',
   styleUrl: './producto-list.component.scss'
 })

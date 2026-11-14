@@ -1,0 +1,15 @@
+td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.acciones {
+  display: flex;
+  gap: 8px;
+}
+
+a.btn {
+  text-decoration: none;
+  display: inline-block;
+}

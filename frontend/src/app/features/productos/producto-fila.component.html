@@ -1,0 +1,10 @@
+<td>{{ producto.id }}</td>
+<td>{{ producto.nombre }}</td>
+<td>{{ producto.precio }}</td>
+<td>{{ producto.stock }}</td>
+<td>
+  <div class="acciones">
+    <a class="btn sec" [routerLink]="['/productos', producto.id, 'editar']">Editar</a>
+    <button type="button" class="btn peligro" (click)="eliminar.emit(producto)">Eliminar</button>
+  </div>
+</td>

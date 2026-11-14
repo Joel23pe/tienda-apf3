@@ -1,0 +1,6 @@
+@if (mensaje) {
+  <div class="alerta" role="alert">
+    <span>{{ mensaje }}</span>
+    <button type="button" class="cerrar" aria-label="Cerrar" (click)="cerrar.emit()">×</button>
+  </div>
+}

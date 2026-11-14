@@ -2,10 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductoService } from '../../core/services/producto.service';
+import { AlertaComponent } from '../../shared/alerta/alerta.component';
 
 @Component({
   selector: 'app-producto-form',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, AlertaComponent],
   templateUrl: './producto-form.component.html',
   styleUrl: './producto-form.component.scss'
 })

@@ -1,0 +1,24 @@
+@use '../../../styles/variables' as v;
+
+:host {
+  display: block;
+}
+
+.alerta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fee2e2;
+  color: v.$peligro;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 12px;
+}
+
+.cerrar {
+  background: transparent;
+  border: 0;
+  color: v.$peligro;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
