@@ -1,9 +1,18 @@
 @use '../../../styles/variables' as v;
 
+:host {
+  display: block;
+}
+
 .login {
   @include v.tarjeta;
+  box-sizing: border-box;
+  width: 100%;
   max-width: 380px;
   margin: 60px auto;
 
-  button { margin-top: 16px; width: 100%; }
+  button {
+    margin-top: 16px;
+    width: 100%;
+  }
 }

@@ -9,13 +9,14 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((e: HttpErrorResponse) => {
-      let msg = 'Error inesperado';
+      let msg = `Error inesperado (código ${e.status})`;
       if (e.status === 0) msg = 'No hay conexión con el servidor';
       else if (e.status === 401 || (e.status === 403 && esLogin)) {
         msg = esLogin ? 'Usuario o contraseña incorrectos' : 'Sesión expirada';
         if (!esLogin) auth.logout();
       } else if (e.status === 403) msg = 'No tienes permiso para esta acción';
-      else if (e.error?.message) msg = e.error.message;
+      else if (typeof e.error?.message === 'string') msg = e.error.message;
+      else if (typeof e.error?.error === 'string') msg = e.error.error;
       return throwError(() => new Error(msg));
     })
   );
