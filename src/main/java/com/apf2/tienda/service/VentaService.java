@@ -34,6 +34,7 @@ public class VentaService {
         this.productoRepo = productoRepo;
     }
 
+    @SuppressWarnings("null")
     @Transactional
     public Venta registrarVenta(List<ItemVentaRequest> items, String usuario) {
         if (items == null || items.isEmpty()) {
