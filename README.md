@@ -1,43 +1,45 @@
-# Tienda – API REST con Spring Data JPA y JWT
+# Tienda – API REST con Spring Data JPA, JWT y front-end Angular
 
-Avance de Proyecto Final 2 (APF2) – Desarrollo Web Integrado (100000ST62), Sección 60618.
+Avance de Proyecto Final 3 (APF3) – Curso Integrador II: Sistemas.
 
-Back-end de una tienda (productos, categorías, ventas y usuarios) con persistencia en **Spring Data JPA / Hibernate**, consultas **JPQL**, transacciones con `@Transactional` y seguridad con **Spring Security + JWT**.
+Back-end de una tienda (productos, categorías, ventas y usuarios) con persistencia en **Spring Data JPA / Hibernate** sobre **PostgreSQL**, consultas **JPQL**, transacciones con `@Transactional`, seguridad con **Spring Security + JWT** y documentación con **Swagger / OpenAPI**. Incluye un front-end en **Angular** (carpeta `frontend`).
 
 ## Tecnologías
 
-Java 21 · Spring Boot 4.1.1 · Spring Data JPA (Hibernate 7) · H2 (en memoria) · Spring Security · jjwt 0.12.6 · Maven
+Java 21 · Spring Boot 4.1.1 · Spring Data JPA (Hibernate 7) · PostgreSQL · Spring Security · jjwt 0.12.6 · springdoc-openapi 3.0.1 · Maven · Angular · SASS
 
 ## Estructura de paquetes (`com.apf2.tienda`)
 
 | Paquete      | Contenido                                                              |
 | ------------ | ---------------------------------------------------------------------- |
-| `model`      | Entidades JPA: `Categoria`, `Producto`, `Venta`, `Usuario`, `Rol`      |
+| `model`      | Entidades JPA: `Categoria`, `Producto`, `Venta`, `DetalleVenta`, `Usuario`, `Rol` |
 | `repository` | Interfaces `JpaRepository` y consultas JPQL (`ProductoRepository`)     |
 | `service`    | Lógica de negocio; `VentaService` usa `@Transactional`                 |
 | `controller` | Endpoints REST                                                         |
 | `security`   | `SecurityConfig`, `JwtUtil`, `JwtAuthFilter`, `UserDetailsServiceImpl` |
 | `exception`  | Manejo global de errores                                               |
-| `config`     | `DataInitializer` (datos de prueba)                                    |
+| `config`     | `DataInitializer` (datos de prueba) y `OpenApiConfig` (Swagger)        |
 
-## Cómo ejecutar
+## Cómo ejecutar el back-end
+
+Requisitos: Java 21 y **PostgreSQL** en ejecución con la base de datos `tienda` creada.
 
 1. Clonar el repositorio: `git clone https://github.com/Joel23pe/tienda-apf3.git`
-2. Verificar en `src/main/resources/application.properties` que exista una clave Base64 en `app.jwt.secret` (mínimo 256 bits). Para generar una en PowerShell:
+2. Configurar la conexión a PostgreSQL. Los valores (URL, usuario, contraseña y clave JWT) se leen de variables de entorno, según `src/main/resources/application-prod.properties`. La clave JWT debe ser Base64 (mínimo 256 bits). Para generar una en PowerShell:
 
    ```
    [Convert]::ToBase64String((1..48 | ForEach-Object { Get-Random -Maximum 256 }))
    ```
 
-3. Ejecutar desde VS Code (clase `TiendaApplication`) o con Maven:
+3. Definir las variables en la misma terminal donde se ejecuta Maven y arrancar con el perfil `prod`:
 
    ```
-   .\mvnw.cmd spring-boot:run
+   .\mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=prod
    ```
 
-   Debe aparecer `Started TiendaApplication` en la consola. La base H2 no requiere instalación.
+   Debe aparecer `Started TiendaApplication` en la consola.
 
-4. Opcional, consola de H2: http://localhost:8080/h2-console (JDBC URL `jdbc:h2:mem:tiendadb`, usuario `sa`, contraseña vacía).
+4. Documentación interactiva (Swagger UI): http://localhost:8080/swagger-ui.html
 
 ## Usuarios de prueba
 
@@ -66,7 +68,7 @@ Sin token la API responde `401`; con token pero sin permiso, `403`.
 
 ## Pruebas con Postman
 
-Importar `postman/Tienda-APF2.postman_collection.json`. Ejecutar primero **1. Auth → Login admin**: guarda el token automáticamente en la variable `token`. El token dura 1 hora y deja de ser válido si se cambia `app.jwt.secret`; en ese caso hay que iniciar sesión otra vez. Los datos son en memoria: al reiniciar la aplicación vuelven al estado inicial.
+Importar `postman/Tienda-APF2.postman_collection.json`. Ejecutar primero **1. Auth → Login admin**: guarda el token automáticamente en la variable `token`. El token dura 1 hora y deja de ser válido si se cambia la clave JWT; en ese caso hay que iniciar sesión otra vez. Los datos se guardan en PostgreSQL y se conservan al reiniciar la aplicación.
 
 ## Front-end Angular (carpeta `frontend`)
 
@@ -86,6 +88,6 @@ Rutas: `/login`, `/productos`, `/productos/nuevo`, `/productos/:id/editar` (prot
 
 ### Ejecutar el front-end
 
-1. Back-end: `.\mvnw.cmd spring-boot:run`
+1. Back-end en ejecución (PostgreSQL encendido y aplicación arrancada como se indica arriba).
 2. Front-end: `cd frontend`, luego `npm install` y `ng serve --proxy-config proxy.conf.json`
 3. Abrir http://localhost:4200 (usuario `admin`, contraseña `admin123`).

@@ -14,11 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
 /**
  * CAPÍTULO 3 - 3.1 / 4.1 CONFIGURACIÓN DE SPRING SECURITY (SecurityFilterChain)
- *  - Rutas públicas:   /api/auth/** (login y registro), la consola H2 y la documentación Swagger
+ *  - Rutas públicas:   /api/auth/** (login y registro) y la documentación Swagger
  *  - Solo ADMIN:       cualquier DELETE
  *  - Resto de rutas:   requieren token JWT válido
  *  - Sesión STATELESS: no se guarda sesión en el servidor; cada petición trae su token.
@@ -37,10 +36,7 @@ public class SecurityConfig {
         http
             .csrf(AbstractHttpConfigurer::disable) // API REST con JWT: no usa cookies de sesión
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            // La consola H2 se muestra dentro de un <iframe>: hay que permitirlo
-            .headers(h -> h.frameOptions(f -> f.sameOrigin()))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/h2-console/**")).permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
                 // Swagger / OpenAPI: la interfaz y el JSON de la documentación son públicos;
                 // los endpoints de la API siguen exigiendo token (botón Authorize)
