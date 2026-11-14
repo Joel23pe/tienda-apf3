@@ -1,0 +1,33 @@
+<div class="cabecera">
+  <h2>Productos</h2>
+  <a class="btn" routerLink="/productos/nuevo">Nuevo producto</a>
+</div>
+
+@if (error()) { <div class="alerta">{{ error() }}</div> }
+@if (cargando()) { <p>Cargando...</p> }
+
+@if (!cargando() && productos().length === 0 && !error()) {
+  <p>No hay productos registrados.</p>
+}
+
+@if (productos().length > 0) {
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+      @for (p of productos(); track p.id) {
+        <tr>
+          <td>{{ p.id }}</td>
+          <td>{{ p.nombre }}</td>
+          <td>{{ p.precio }}</td>
+          <td>{{ p.stock }}</td>
+          <td class="acciones">
+            <a class="btn sec" [routerLink]="['/productos', p.id, 'editar']">Editar</a>
+            <button class="btn peligro" (click)="eliminar(p)">Eliminar</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

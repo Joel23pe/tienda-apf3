@@ -1,0 +1,12 @@
+$primario: #1d4ed8;
+$secundario: #64748b;
+$peligro: #dc2626;
+$fondo: #f1f5f9;
+$radio: 8px;
+
+@mixin tarjeta {
+  background: #fff;
+  border-radius: $radio;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

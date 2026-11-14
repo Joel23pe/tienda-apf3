@@ -1,0 +1,9 @@
+@if (auth.logged()) {
+  <nav class="nav">
+    <a routerLink="/productos">Tienda APF3</a>
+    <button class="btn sec" (click)="auth.logout()">Cerrar sesión</button>
+  </nav>
+}
+<main class="container">
+  <router-outlet />
+</main>

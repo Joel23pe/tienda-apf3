@@ -1,0 +1,5 @@
+@use '../../../styles/variables' as v;
+
+.formulario { @include v.tarjeta; max-width: 480px; margin: 0 auto; }
+.botones { display: flex; gap: 8px; margin-top: 16px; }
+a.btn { text-decoration: none; display: inline-block; }

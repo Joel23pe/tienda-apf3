@@ -1,0 +1,23 @@
+@use './styles/variables' as v;
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: v.$fondo;
+}
+
+.container { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+
+.btn {
+  border: 0; border-radius: v.$radio; padding: 8px 16px;
+  color: #fff; background: v.$primario; cursor: pointer;
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+  &.sec { background: v.$secundario; }
+  &.peligro { background: v.$peligro; }
+}
+
+label { display: block; margin-top: 12px; font-weight: bold; }
+input { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 6px; }
+input.invalido { border-color: v.$peligro; }
+.error { color: v.$peligro; font-size: 0.85rem; margin: 4px 0 0; }
+.alerta { background: #fee2e2; color: v.$peligro; padding: 10px; border-radius: 6px; margin-top: 12px; }

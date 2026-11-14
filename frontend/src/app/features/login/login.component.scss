@@ -1,0 +1,9 @@
+@use '../../../styles/variables' as v;
+
+.login {
+  @include v.tarjeta;
+  max-width: 380px;
+  margin: 60px auto;
+
+  button { margin-top: 16px; width: 100%; }
+}

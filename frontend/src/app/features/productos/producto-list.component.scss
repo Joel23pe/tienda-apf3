@@ -1,0 +1,15 @@
+@use '../../../styles/variables' as v;
+
+.cabecera { display: flex; justify-content: space-between; align-items: center; }
+
+table {
+  @include v.tarjeta;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+
+  th, td { text-align: left; padding: 10px; border-bottom: 1px solid #e2e8f0; }
+}
+
+.acciones { display: flex; gap: 8px; }
+a.btn { text-decoration: none; display: inline-block; }
